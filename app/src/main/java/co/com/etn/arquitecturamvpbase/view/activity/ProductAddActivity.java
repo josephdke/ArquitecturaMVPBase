@@ -3,6 +3,7 @@ package co.com.etn.arquitecturamvpbase.view.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -73,9 +74,12 @@ public class ProductAddActivity extends BaseActivity<ProductAddPresenter> implem
                 product_add_edittext_quantity.getText().length()>0 &&
                 product_add_edittext_price.getText().length()>0 ){
             product_add_button_crear.setEnabled(true);
+
+            product_add_button_crear.setBackgroundColor(ContextCompat.getColor(this,R.color.colorEnabled));
         }
         else {
             product_add_button_crear.setEnabled(false);
+            product_add_button_crear.setBackgroundColor(ContextCompat.getColor(this,R.color.colorDisabled));
         }
     }
 
