@@ -2,6 +2,7 @@ package co.com.etn.arquitecturamvpbase.service;
 
 import java.util.ArrayList;
 
+import co.com.etn.arquitecturamvpbase.model.DeleteResponse;
 import co.com.etn.arquitecturamvpbase.model.Product;
 import retrofit.http.Body;
 import retrofit.http.DELETE;
@@ -22,6 +23,6 @@ public interface IServices {
     Product insertProduct( @Body Product p );
 
     @DELETE("/products/{id}")
-    Product deleteProduct( @Path("id") String id );
+    DeleteResponse deleteProduct(@Path("id") String id );
 
 }

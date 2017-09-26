@@ -2,7 +2,6 @@ package co.com.etn.arquitecturamvpbase.view.activity;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,7 +11,7 @@ import co.com.etn.arquitecturamvpbase.R;
 import co.com.etn.arquitecturamvpbase.helper.Constants;
 import co.com.etn.arquitecturamvpbase.model.Product;
 import co.com.etn.arquitecturamvpbase.presenter.DetailPresenter;
-import co.com.etn.arquitecturamvpbase.presenter.ProductAddPresenter;
+import co.com.etn.arquitecturamvpbase.repository.ProductRepository;
 import co.com.etn.arquitecturamvpbase.view.BaseActivity;
 
 /**
@@ -34,7 +33,7 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements IDe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
 
-        setPresenter(new DetailPresenter());
+        setPresenter(new DetailPresenter(new ProductRepository()));
         getPresenter().inject(this, getValidateInternet());
         createProgressDialog();
 
@@ -72,6 +71,19 @@ public class DetailActivity extends BaseActivity<DetailPresenter> implements IDe
                 DetailActivity.this.finish();
             }
         });
+    }
+
+    @Override
+    public void showAlertDialog(int validate_internet) {
+    }
+
+    @Override
+    public void showToast(int delete_correct) {
+        Toast.makeText(this, getString(delete_correct), Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showAlertDialogError(int error) {
     }
 
 }

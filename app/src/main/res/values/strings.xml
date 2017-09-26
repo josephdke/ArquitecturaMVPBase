@@ -11,4 +11,7 @@
     <string name="hint_product_add_edittext_price">Precio</string>
     <string name="product_add_button_crear">Crear</string>
     <string name="product_detail_button_eliminar">Eliminar</string>
+    <string name="validate_internet">No hay internet!</string>
+    <string name="delete_correct">Eliminado satisfactoriamente</string>
+    <string name="error">Ha ocurrido un error</string>
 </resources>

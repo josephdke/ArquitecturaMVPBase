@@ -1,10 +1,7 @@
 package co.com.etn.arquitecturamvpbase.presenter;
 
-import java.util.ArrayList;
-
 import co.com.etn.arquitecturamvpbase.R;
 import co.com.etn.arquitecturamvpbase.model.Product;
-import co.com.etn.arquitecturamvpbase.repository.ProductAddRepository;
 import co.com.etn.arquitecturamvpbase.repository.ProductRepository;
 import co.com.etn.arquitecturamvpbase.view.activity.IProductAddView;
 import retrofit.RetrofitError;
@@ -15,11 +12,11 @@ import retrofit.RetrofitError;
 
 public class ProductAddPresenter extends BasePresenter <IProductAddView> {
 
-    private ProductAddRepository productAddRepository;
+    private ProductRepository productRepository;
     Product p;
 
     public ProductAddPresenter() {
-        productAddRepository = new ProductAddRepository();
+        productRepository = new ProductRepository();
     }
 
     public void createProduct( String name, String description, String quantity, String price ) {
@@ -42,7 +39,7 @@ public class ProductAddPresenter extends BasePresenter <IProductAddView> {
             @Override
             public void run() {
                 try {
-                    Product pResult = productAddRepository.insertProduct( p );
+                    Product pResult = productRepository.insertProduct( p );
                     getView().showProductList( pResult );
                 } catch( RetrofitError retrofitError ){
                     //TODO: mostrar alert

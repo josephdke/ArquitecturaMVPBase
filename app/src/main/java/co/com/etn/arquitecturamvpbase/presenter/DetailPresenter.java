@@ -1,11 +1,10 @@
 package co.com.etn.arquitecturamvpbase.presenter;
 
 import co.com.etn.arquitecturamvpbase.R;
-import co.com.etn.arquitecturamvpbase.model.Product;
-import co.com.etn.arquitecturamvpbase.repository.DetailRepository;
-import co.com.etn.arquitecturamvpbase.repository.ProductAddRepository;
+import co.com.etn.arquitecturamvpbase.model.DeleteResponse;
+import co.com.etn.arquitecturamvpbase.repository.IProductRepository;
+import co.com.etn.arquitecturamvpbase.repository.ProductRepository;
 import co.com.etn.arquitecturamvpbase.view.activity.IDetailView;
-import co.com.etn.arquitecturamvpbase.view.activity.IProductAddView;
 import retrofit.RetrofitError;
 
 /**
@@ -14,10 +13,10 @@ import retrofit.RetrofitError;
 
 public class DetailPresenter extends BasePresenter <IDetailView> {
 
-    private DetailRepository detailRepository;
+    private IProductRepository productRepository;
 
-    public DetailPresenter() {
-        detailRepository = new DetailRepository();
+    public DetailPresenter(IProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
     public void deleteProduct(String id) {
@@ -25,26 +24,36 @@ public class DetailPresenter extends BasePresenter <IDetailView> {
             createThreadDeleteProduct( id );
         }
         else {
-            // TODO: Implementación alert
+            getView().showAlertDialog(R.string.validate_internet);
         }
     }
 
-    private void createThreadDeleteProduct( final String id ) {
+    public void createThreadDeleteProduct(final String id) {
         getView().showProgress(R.string.loading_message);
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                try {
-                    detailRepository.deleteProduct( id );
-                    getView().showProductList();
-                } catch( RetrofitError retrofitError ){
-                    //TODO: mostrar alert
-                } finally {
-                    getView().hideProgress();
-                }
+                deleteProductRepository(id);
             }
         });
         thread.start();
+    }
+
+    public void deleteProductRepository(String id){
+        try {
+            DeleteResponse deleteResponse = productRepository.deleteProduct( id );
+            if( deleteResponse.isStatus() ) {
+                getView().showToast(R.string.delete_correct);
+            }
+            else {
+                getView().showAlertDialogError(R.string.error);
+            }
+            //getView().showProductList();
+        } catch( RetrofitError retrofitError ){
+            //TODO: mostrar alert
+        } finally {
+            getView().hideProgress();
+        }
     }
 
 }

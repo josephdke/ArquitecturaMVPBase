@@ -1,6 +1,5 @@
 package co.com.etn.arquitecturamvpbase.view.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v4.content.ContextCompat;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 import co.com.etn.arquitecturamvpbase.R;
 import co.com.etn.arquitecturamvpbase.model.Product;
 import co.com.etn.arquitecturamvpbase.presenter.ProductAddPresenter;
-import co.com.etn.arquitecturamvpbase.presenter.ProductPresenter;
 import co.com.etn.arquitecturamvpbase.view.BaseActivity;
 
 public class ProductAddActivity extends BaseActivity<ProductAddPresenter> implements IProductAddView, TextWatcher {
